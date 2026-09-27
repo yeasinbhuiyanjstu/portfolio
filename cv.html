@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yeasin Bhuiyan - Curriculum Vitae</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sidebar-bg: #123743;
+      --sidebar-dark: #0d2932;
+      --amber: #e5a024;
+      --primary: #0284c7;
+      --text-dark: #0f172a;
+      --text-muted: #334155;
+      --line-color: #cbd5e1;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #091322;
+      color: var(--text-dark);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Floating Toolbar */
+    .cv-toolbar {
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(13, 31, 60, 0.95);
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      backdrop-filter: blur(10px);
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    .toolbar-left a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .toolbar-left a:hover {
+      color: #00d4ff;
+    }
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s;
+    }
+    .btn-download {
+      background: linear-gradient(135deg, #00d4ff, #0066ff);
+      color: #000;
+      box-shadow: 0 2px 10px rgba(0, 212, 255, 0.3);
+    }
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.5);
+    }
+    .btn-print {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .btn-print:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    /* A4 CV Container */
+    .cv-page {
+      width: 210mm;
+      min-height: 297mm;
+      background: #ffffff;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+      display: grid;
+      grid-template-columns: 75mm 1fr;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── LEFT SIDEBAR ── */
+    .sidebar {
+      background: var(--sidebar-bg);
+      color: #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .photo-container {
+      position: relative;
+      width: 100%;
+      height: 74mm;
+      overflow: hidden;
+    }
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transform: scale(1.22);
+      display: block;
+    }
+    /* Slanted bottom divider */
+    .photo-container::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 24px;
+      background: var(--sidebar-bg);
+      clip-path: polygon(0 100%, 100% 100%, 100% 0);
+    }
+    .photo-accent-line {
+      position: absolute;
+      bottom: 22px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--amber);
+      transform: skewY(5.5deg);
+      transform-origin: bottom right;
+      z-index: 2;
+    }
+
+    .sidebar-content {
+      padding: 10px 20px 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sidebar-heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .heading-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 2px solid var(--amber);
+      background: transparent;
+      display: inline-block;
+    }
+
+    .contact-item {
+      font-size: 0.76rem;
+      color: #e2e8f0;
+      line-height: 1.35;
+      word-break: break-all;
+    }
+    .contact-item a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .contact-item.muted {
+      color: #94a3b8;
+    }
+
+    .edu-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+    .edu-block:last-child {
+      margin-bottom: 0;
+    }
+    .edu-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+    .edu-inst {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      font-style: italic;
+    }
+    .edu-detail {
+      font-size: 0.7rem;
+      color: #e2e8f0;
+    }
+    .edu-highlight {
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    .skills-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .skills-list li {
+      font-size: 0.75rem;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .skills-list li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+
+    .honor-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.74rem;
+    }
+    .honor-title {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .honor-sub {
+      color: #94a3b8;
+      font-size: 0.68rem;
+    }
+
+    /* ── RIGHT CONTENT ── */
+    .main-content {
+      padding: 38px 34px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .header-area {
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 16px;
+    }
+    .name-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .sub-role {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .content-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      position: relative;
+      padding-bottom: 5px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 38px;
+      height: 2.5px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .profile-summary {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      text-align: justify;
+    }
+
+    /* Timeline Experience */
+    .timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-left: 18px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      bottom: 12px;
+      left: 4.5px;
+      width: 1.5px;
+      background: var(--line-color);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: -18px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid var(--primary);
+      z-index: 1;
+    }
+
+    .item-meta {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .item-role {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .item-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 3px;
+    }
+    .item-bullets li {
+      font-size: 0.76rem;
+      line-height: 1.45;
+      color: var(--text-muted);
+      position: relative;
+      padding-left: 12px;
+    }
+    .item-bullets li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* References Grid */
+    .references-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 4px;
+    }
+    .ref-card {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .ref-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+      }
+      .cv-toolbar {
+        display: none;
+      }
+      .cv-page {
+        width: 100%;
+        min-height: 100vh;
+        box-shadow: none;
+        margin: 0;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+    }
+
+    /* Responsive preview for small mobile */
+    @media (max-width: 840px) {
+      body {
+        padding: 10px;
+      }
+      .cv-page {
+        width: 100%;
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .photo-container {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Toolbar -->
+  <div class="cv-toolbar">
+    <div class="toolbar-left">
+      <a href="index.html">← Back to Portfolio</a>
+    </div>
+    <div class="toolbar-actions">
+      <a href="Yeasin_Bhuiyan_CV.pdf" download="Yeasin_Bhuiyan_CV.pdf" class="btn-action btn-download">
+        📥 Download PDF
+      </a>
+      <button onclick="window.print()" class="btn-action btn-print">
+        🖨️ Print / Save as PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- A4 CV Canvas -->
+  <div class="cv-page">
+    
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="photo-container">
+        <img src="profile.png" alt="Yeasin Bhuiyan" />
+        <div class="photo-accent-line"></div>
+      </div>
+
+      <div class="sidebar-content">
+        <!-- Contact -->
+        <section class="sidebar-section">
+          <div class="sidebar-heading">
+            <span class="heading-dot"></span> Contact
+          </div>
+          <div class="contact-item"><a href="mailto:yeasinbhuiyan265@gmail.com">yeasinbhuiyan265@gmail.com</a></div>
+          <div class="contact-item"><a href="tel:+8801575151636">+880 1575 151636</a></div>
+          <div class="contact-item muted">JSTU, Jamalpur, Bangladesh</div>
+          <div class="contact-item"><a href="https://github.com/smshaiful" target="_blank">github.com/smshaiful</a></div>
+        </section>
+
+        <!-- Education -->
+        <section class="sidebar-section">
+          <div class="sidebar-heading">
+            <span class="heading-dot"></span> Education
+          </div>
+          
+          <div class="edu-block">
+            <div class="edu-title">B.Sc. in Electrical &amp; Electronic Eng.</div>
+            <div class="edu-inst">Jamalpur Sci. &amp; Tech. Univ. (JSTU)</div>
+            <div class="edu-detail"><span class="edu-highlight">Ongoing Undergraduate Program</span></div>
+          </div>
+
+          <div class="edu-block">
+            <div class="edu-title">Higher Secondary Certificate (HSC)</div>
+            <div class="edu-inst">Birshrestha Noor Mohammad Public College</div>
+            <div class="edu-detail">2022 | Dhaka Board | <span class="edu-highlight">GPA 5.00</span></div>
+          </div>
+
+          <div class="edu-block">
+            <div class="edu-title">Secondary School Certificate (SSC)</div>
+            <div class="edu-inst">Ragdail I.M. High School</div>
+            <div class="edu-detail">2020 | Cumilla Board | <span class="edu-highlight">GPA 5.00</span></div>
+          </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="sidebar-section">
+          <div class="sidebar-heading">
+            <span class="heading-dot"></span> Technical Skills
+          </div>
+          <ul class="skills-list">
+            <li>Circuit Design &amp; Hardware Prototyping</li>
+            <li>Digital Electronics &amp; Logic Systems</li>
+            <li>OrCAD / PSpice Circuit Simulation</li>
+            <li>MATLAB &amp; Simulink Modeling</li>
+            <li>Python &amp; C Programming</li>
+            <li>Arduino Microcontrollers (Nano, Uno)</li>
+            <li>Biomedical Instrumentation (ECG, AD8232)</li>
+            <li>Sensor Interfacing &amp; Telemetry</li>
+            <li>Motor Drivers &amp; Actuation (L298N)</li>
+            <li>Tinkercad IoT Simulation</li>
+          </ul>
+        </section>
+
+        <!-- Honors & Projects -->
+        <section class="sidebar-section">
+          <div class="sidebar-heading">
+            <span class="heading-dot"></span> Projects &amp; Honors
+          </div>
+          <div class="honor-item">
+            <span class="honor-title">ROBOFUSION 1.0 (Clever Sapiens)</span>
+            <span class="honor-sub">Real-Time ECG Monitor Demonstration</span>
+          </div>
+          <div class="honor-item">
+            <span class="honor-title">Fire Fighting Robot Automation</span>
+            <span class="honor-sub">Autonomous Sensor-Guided Suppression</span>
+          </div>
+          <div class="honor-item">
+            <span class="honor-title">Smart Home IoT Simulation</span>
+            <span class="honor-sub">Sensor &amp; Relay Architecture in Tinkercad</span>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <!-- Right Main Content -->
+    <main class="main-content">
+      <div class="header-area">
+        <h1 class="name-title">Yeasin Bhuiyan</h1>
+        <div class="sub-role">EEE Researcher &amp; Embedded Systems Engineer</div>
+      </div>
+
+      <!-- Profile -->
+      <section class="content-section">
+        <h2 class="section-title">Profile</h2>
+        <p class="profile-summary">
+          Dedicated Electrical and Electronic Engineering (EEE) student at Jamalpur Science and Technology University (JSTU) specializing in practical circuit design, microcontroller systems, biomedical instrumentation, and autonomous hardware. Experienced in engineering real-time biopotential acquisition stations (ECG), developing high-speed multithreaded Python telemetry GUIs, designing autonomous fire-fighting robotics, and architecting IoT sensor simulations. Passionate about analog-to-digital interfacing and building reliable, real-world hardware prototypes.
+        </p>
+      </section>
+
+      <!-- Experience & Projects -->
+      <section class="content-section">
+        <h2 class="section-title">Project &amp; Engineering Experience</h2>
+
+        <div class="timeline">
+          <!-- Item 1 -->
+          <div class="timeline-item">
+            <span class="item-meta">2024 — Present | Jamalpur Science &amp; Technology University</span>
+            <span class="item-role">Lead Hardware &amp; Signal Developer — DIY ECG Machine</span>
+            <ul class="item-bullets">
+              <li>Engineered a real-time Electrocardiogram (ECG) monitor integrating AD8232 biopotential analog front-end and Arduino Nano with serial synchronization.</li>
+              <li>Designed multi-stage active analog filtration and instrumentation amplification to suppress 50Hz AC mains noise and baseline wander.</li>
+              <li>Built a 60fps multithreaded Python GUI (Robofusion 1.0) with real-time waveform plotting and R-wave BPM calculation.</li>
+              <li>Repository: <a href="https://github.com/smshaiful/Project-ECG-Machine-Arduino-Nano" target="_blank" style="color:var(--primary); text-decoration:none;">github.com/smshaiful/Project-ECG-Machine-Arduino-Nano</a> | Video: <a href="https://youtu.be/joZa_iyXXQM" target="_blank" style="color:var(--primary); text-decoration:none;">youtu.be/joZa_iyXXQM</a></li>
+            </ul>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="timeline-item">
+            <span class="item-meta">2024 | Academic Hardware &amp; Robotics Labs, JSTU</span>
+            <span class="item-role">Autonomous Robotics Developer — Fire Fighting Robot</span>
+            <ul class="item-bullets">
+              <li>Developed an autonomous emergency response robot equipped with a 3-channel flame sensor array and L298N dual H-bridge motor driver.</li>
+              <li>Implemented intelligent flame tracking algorithms and automated water pump servo targeting for rapid fire extinguishing.</li>
+              <li>Demonstrated reliable fire suppression performance in physical test scenarios. Video Demo: <a href="https://www.facebook.com/share/v/1BFJxyfnTD/" target="_blank" style="color:var(--primary); text-decoration:none;">facebook.com/share/v/1BFJxyfnTD/</a></li>
+            </ul>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="timeline-item">
+            <span class="item-meta">2023 — 2024 | Autodesk Tinkercad Simulation &amp; Prototyping</span>
+            <span class="item-role">Simulation &amp; IoT Designer — Smart Home Automation</span>
+            <ul class="item-bullets">
+              <li>Architected and simulated a multi-sensor smart-home control system in Tinkercad utilizing an Arduino Uno controller.</li>
+              <li>Interfaced PIR motion detection for automated lighting, ultrasonic sensors for security monitoring, and gas leakage alert with buzzer actuation.</li>
+              <li>Simulated relay-driven AC appliance control, optimizing power efficiency and component protection.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- References -->
+      <section class="content-section">
+        <h2 class="section-title">References</h2>
+        <div class="references-grid">
+          <div class="ref-card">
+            <span class="ref-name">Department of EEE</span>
+            <span>Jamalpur Science &amp; Technology University (JSTU)</span>
+            <span>Phone: +880 1575 151636</span>
+            <span>Email: <a href="mailto:info@jstu.edu.bd" style="color:inherit; text-decoration:none;">info@jstu.edu.bd</a></span>
+          </div>
+          <div class="ref-card">
+            <span class="ref-name">Academic References</span>
+            <span>Jamalpur Science &amp; Technology University</span>
+            <span>Available Upon Request</span>
+            <span>Email: <a href="mailto:yeasinbhuiyan265@gmail.com" style="color:inherit; text-decoration:none;">yeasinbhuiyan265@gmail.com</a></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+</body>
+</html>
